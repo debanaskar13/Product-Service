@@ -1,4 +1,4 @@
-package com.debashis.ecommerce.product;
+package com.debashis.ecommerce.product.utils;
 
 import org.springframework.stereotype.Service;
 
@@ -6,6 +6,7 @@ import com.debashis.ecommerce.category.Category;
 import com.debashis.ecommerce.product.dto.ProductPurchaseResponse;
 import com.debashis.ecommerce.product.dto.ProductRequest;
 import com.debashis.ecommerce.product.dto.ProductResponse;
+import com.debashis.ecommerce.product.model.Product;
 
 @Service
 public class ProductMapper {

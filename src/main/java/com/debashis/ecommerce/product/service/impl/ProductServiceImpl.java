@@ -1,4 +1,4 @@
-package com.debashis.ecommerce.product;
+package com.debashis.ecommerce.product.service.impl;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -20,6 +20,10 @@ import com.debashis.ecommerce.product.dto.UpdatePriceRequest;
 import com.debashis.ecommerce.product.dto.UpdateQuantityRequest;
 import com.debashis.ecommerce.product.exception.ProductNotFoundException;
 import com.debashis.ecommerce.product.exception.ProductPurchasedException;
+import com.debashis.ecommerce.product.model.Product;
+import com.debashis.ecommerce.product.repository.ProductRepository;
+import com.debashis.ecommerce.product.service.ProductService;
+import com.debashis.ecommerce.product.utils.ProductMapper;
 
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
@@ -28,15 +32,17 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class ProductService {
+public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository repository;
     private final ProductMapper mapper;
 
+    @Override
     public Integer createProduct(ProductRequest request) {
         return this.repository.save(this.mapper.toProduct(request)).getId();
     }
 
+    @Override
     public List<ProductPurchaseResponse> purchaseProducts(List<ProductPurchaseRequest> request) {
 
         var productIds = request.stream()
@@ -73,11 +79,13 @@ public class ProductService {
         return purchasedProducts;
     }
 
+    @Override
     public ProductResponse findById(Integer productId) {
         return this.repository.findById(productId).map(mapper::toProductResponse)
                 .orElseThrow(() -> new ProductNotFoundException("Product not found with ID :: " + productId));
     }
 
+    @Override
     public ProductPageResponse findAll(String sortField, String direction, String page, String limit) {
 
         Sort.Direction sortDirection = direction.toUpperCase().equals("ASC") ? Sort.Direction.ASC : Sort.Direction.DESC;
@@ -115,6 +123,7 @@ public class ProductService {
 
     }
 
+    @Override
     public String updateProduct(ProductUpdateRequest request) {
 
         var product = this.repository.findById(request.id())
@@ -127,18 +136,7 @@ public class ProductService {
         return String.format("Product with id : %s has successfully updated", request.id());
     }
 
-    private void mergeProduct(Product product, ProductUpdateRequest request) {
-        if (StringUtils.isNotBlank(request.name())) {
-            product.setName(request.name());
-        }
-        if (StringUtils.isNotBlank(request.description())) {
-            product.setDescription(request.description());
-        }
-        if (StringUtils.isNotBlank(request.img())) {
-            product.setImg(request.img());
-        }
-    }
-
+    @Override
     public String updateQuantity(UpdateQuantityRequest request) {
         Product product = this.repository.findById(request.productId())
                 .orElseThrow(() -> new ProductNotFoundException("Product not found with ID :: " + request.productId()));
@@ -149,6 +147,7 @@ public class ProductService {
         return "Quantity Updated Successfully";
     }
 
+    @Override
     public String updatePrice(UpdatePriceRequest request) {
         Product product = this.repository.findById(request.productId())
                 .orElseThrow(() -> new ProductNotFoundException("Product not found with ID :: " + request.productId()));
@@ -156,6 +155,18 @@ public class ProductService {
         product.setPrice(request.price());
         this.repository.save(product);
         return "Product price updated successfully";
+    }
+
+    private void mergeProduct(Product product, ProductUpdateRequest request) {
+        if (StringUtils.isNotBlank(request.name())) {
+            product.setName(request.name());
+        }
+        if (StringUtils.isNotBlank(request.description())) {
+            product.setDescription(request.description());
+        }
+        if (StringUtils.isNotBlank(request.img())) {
+            product.setImg(request.img());
+        }
     }
 
 }

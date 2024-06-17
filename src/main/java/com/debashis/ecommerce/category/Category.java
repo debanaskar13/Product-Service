@@ -2,7 +2,7 @@ package com.debashis.ecommerce.category;
 
 import java.util.List;
 
-import com.debashis.ecommerce.product.Product;
+import com.debashis.ecommerce.product.model.Product;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

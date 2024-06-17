@@ -1,4 +1,4 @@
-package com.debashis.ecommerce.product;
+package com.debashis.ecommerce.product.controller;
 
 import java.util.List;
 
@@ -21,6 +21,7 @@ import com.debashis.ecommerce.product.dto.ProductResponse;
 import com.debashis.ecommerce.product.dto.ProductUpdateRequest;
 import com.debashis.ecommerce.product.dto.UpdatePriceRequest;
 import com.debashis.ecommerce.product.dto.UpdateQuantityRequest;
+import com.debashis.ecommerce.product.service.ProductService;
 
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

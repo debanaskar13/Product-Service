@@ -1,4 +1,4 @@
-package com.debashis.ecommerce.product;
+package com.debashis.ecommerce.product.model;
 
 import java.math.BigDecimal;
 
