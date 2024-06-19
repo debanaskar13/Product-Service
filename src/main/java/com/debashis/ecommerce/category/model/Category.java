@@ -1,4 +1,4 @@
-package com.debashis.ecommerce.category;
+package com.debashis.ecommerce.category.model;
 
 import java.util.List;
 

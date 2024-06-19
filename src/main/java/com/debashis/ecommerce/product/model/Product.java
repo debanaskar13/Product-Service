@@ -2,7 +2,7 @@ package com.debashis.ecommerce.product.model;
 
 import java.math.BigDecimal;
 
-import com.debashis.ecommerce.category.Category;
+import com.debashis.ecommerce.category.model.Category;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
