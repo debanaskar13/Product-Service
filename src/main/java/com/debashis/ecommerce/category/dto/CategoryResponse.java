@@ -1,5 +1,7 @@
 package com.debashis.ecommerce.category.dto;
 
-public class CategoryResponse {
-
+public record CategoryResponse(
+                Integer categoryId,
+                String categoryName,
+                String categoryDescription) {
 }

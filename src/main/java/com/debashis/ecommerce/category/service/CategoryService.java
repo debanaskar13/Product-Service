@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.debashis.ecommerce.category.dto.CategoryRequest;
 import com.debashis.ecommerce.category.dto.CategoryResponse;
+import com.debashis.ecommerce.category.dto.ProductsByCategoryResponse;
 
 public interface CategoryService {
 
@@ -16,5 +17,7 @@ public interface CategoryService {
     CategoryResponse findById(Integer categoryId);
 
     void deleteById(Integer categoryId);
+
+    ProductsByCategoryResponse findAllProductByCategoryId(Integer categoryId);
 
 }

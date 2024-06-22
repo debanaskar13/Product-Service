@@ -1,4 +1,4 @@
-package com.debashis.ecommerce.product.exception;
+package com.debashis.ecommerce.exception.handler;
 
 import java.util.HashMap;
 
@@ -9,12 +9,22 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import com.debashis.ecommerce.category.exception.CategoryNotFoundException;
+import com.debashis.ecommerce.product.exception.ErrorResponse;
+import com.debashis.ecommerce.product.exception.ProductNotFoundException;
+import com.debashis.ecommerce.product.exception.ProductPurchasedException;
+
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ProductNotFoundException.class)
     public ResponseEntity<String> handleProductNotFoundException(ProductNotFoundException ex) {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(CategoryNotFoundException.class)
+    public ResponseEntity<String> handleCategoryNotFoundException(CategoryNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMsg());
     }
 
     @ExceptionHandler(ProductPurchasedException.class)
