@@ -14,7 +14,10 @@ import com.debashis.ecommerce.product.exception.ErrorResponse;
 import com.debashis.ecommerce.product.exception.ProductNotFoundException;
 import com.debashis.ecommerce.product.exception.ProductPurchasedException;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestControllerAdvice
+@Slf4j
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(ProductNotFoundException.class)
@@ -52,7 +55,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> handleException(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
+        log.error(ex.getMessage(), ex);
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Something went wrong");
     }
 
 }
